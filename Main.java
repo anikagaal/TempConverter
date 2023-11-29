@@ -1,5 +1,19 @@
-public class Main {
+/* 
+ * Program by: Anika Gaal
+ * Created on: November 28, 2023
+ * Last edited: November 28, 2023
+ * Description: Intended to convert input temperature between Celsius, Fahrenheit, and Kelvin.
+ */
+import java.util.Scanner;
+
+  public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Equations calc = new Equations();
+        
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.print("Please enter the current temperature: ");
+        calc.setTemp(keyboard.nextDouble());
+        
     }
 }
