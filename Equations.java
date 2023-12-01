@@ -5,72 +5,63 @@
  * Description: Intended to convert input temperature between Celsius, Fahrenheit, and Kelvin.
  */
 
- /*
-  * F = (9/5)*celsius + 32
-  * F = (kelvin - 273.15)(9/5) + 32
-  * C = 5/9(fahrenheit - 32)
-  * C = kelvin - 273.15
-  * K = celsius + 273.15
-  * K = (F - 32)(5/9) + 273.15
-  */
 import java.util.Scanner;
 
   public class Equations {
-    private double fahrenheit;
-    private double celsius;
-    private double kelvin;
+
+    private double temperature;
 
     Scanner keyboard = new Scanner(System.in);
 
-    public double getFahrenheit() {
-        return fahrenheit;
+    public double getTemperature() {
+        return temperature;
     }
-    public void setFahrenheit(double fahrenheit) {
-        this.fahrenheit = fahrenheit;
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
     }
-    public double getCelsius() {
-        return celsius;
-    }
-    public void setCelsius(double celsius) {
-        this.celsius = celsius;
-    }
-    public double getKelvin() {
-        return kelvin;
-    }
-    public void setKelvin(double kelvin) {
-        this.kelvin = kelvin;
-    }
-    public String convertTemperature() {
+
+    public String convertTemperature(String tempScale) {
         String response;
         String message = "";
         boolean isInputBad = true;
         double calcCelsius;
         double calcFahrenheit;
         double calcKelvin;
-        response = keyboard.next();
+        String cMessage;
+        String fMessage;
+        String kMessage;  
+        response = tempScale;
+
         while (isInputBad) {
             if (response.equalsIgnoreCase("f")) {
-                calcCelsius = (5/9)*(fahrenheit-32);
+                calcCelsius = (temperature - 32) * 5/9;
                 calcKelvin = calcCelsius + 273.15;
-                message = String.format("The current temperature is %.2f Fahrenheit.%nThe temperature in Celsius is: %.2f degrees.%nThe temperature in Kelvin is: %.2f K.", fahrenheit, calcCelsius, calcKelvin);
-                // System.out.printf("The temperature in Celsius is: %.2f degrees.", calcCelsius);
-                // System.out.printf("The temperature in Kelvin is: %.2f K", calcKelvin);
+                fMessage = String.format("The current temperature is %.2f Fahrenheit%n", temperature);
+                cMessage = String.format("The temperature in Celsius is: %.2f Degrees%n", calcCelsius);
+                kMessage = String.format("The temperature in Kelvin is: %.2f K%n", calcKelvin);
+                message = fMessage + cMessage + kMessage;
                 isInputBad = false;
             } else if (response.equalsIgnoreCase("c")) {
-                calcFahrenheit = (9/5) * celsius + 32;
-                calcKelvin = celsius + 273.15;
-                message = String.format("The current temperature is %.2f Celsius.%nThe temperature in Fahrenheit is: %.2f degrees.%nThe temperature in Kelvin is: %.2f K.", celsius, calcFahrenheit, calcKelvin);
+                calcFahrenheit = (temperature * 9/5) + 32;
+                calcKelvin = temperature + 273.15;
+                cMessage = String.format("The current temperature is %.2f Celsius%n", temperature);
+                fMessage = String.format("The temperature in Fahrenheit is: %.2f Degrees%n", calcFahrenheit);
+                kMessage = String.format("The temperature in Kelvin is: %.2f K%n", calcKelvin);
+                message = cMessage + fMessage + kMessage;
                 isInputBad = false;
             } else if (response.equalsIgnoreCase("k")) {
-                calcCelsius = kelvin - 273.15;
-                calcFahrenheit = (kelvin - 273.15)*(9/5) + 32;
-                message = String.format("The current temperature is %.2f K.%nThe temperature in Celsius is: %.2f degrees.%nThe temperature in Fahrenheit is: %.2f degrees.", kelvin, calcCelsius, calcFahrenheit);
+                calcCelsius = temperature - 273.15;
+                calcFahrenheit = (temperature - 273.15)*(9/5) + 32;
+                kMessage = String.format("The current temperature is %.2f K%n", temperature);
+                cMessage = String.format("The temperature in Celsius is: %.2f Degrees%n", calcCelsius);
+                fMessage = String.format("The temperature in Fahrenheit is: %.2f Degrees%n", calcFahrenheit);
+                message = kMessage + cMessage + fMessage;
                 isInputBad = false;
             } else {
-                System.out.println("Please enter a valid temperature scale: ");
-                isInputBad = true;
+                System.out.println("Please enter a valid temperature scale: "); // crash
             } 
         }
-            return message;
+        return message;
     }
 }
