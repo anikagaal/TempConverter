@@ -10,6 +10,10 @@ import java.util.Scanner;
   public class Equations {
 
     private double temperature;
+    private String tempType;
+    private double calcC;
+    private double calcF;
+    private double calcK;
 
     Scanner keyboard = new Scanner(System.in);
 
@@ -21,7 +25,7 @@ import java.util.Scanner;
         this.temperature = temperature;
     }
 
-    public String convertTemperature(String tempScale) {
+    public String convertTemperature(String tempType) {
         String response;
         String message = "";
         boolean isInputBad = true;
@@ -31,8 +35,40 @@ import java.util.Scanner;
         String cMessage;
         String fMessage;
         String kMessage;  
-        response = tempScale;
 
+        while (isInputBad) {
+            switch (tempType){
+                case "f":
+                    calcC = (temperature - 32) * 5/9;
+                    calcK = calcC + 273.15;
+                    fMessage = String.format("The current temperature is %.2f Fahrenheit%n", temperature);
+                    cMessage = String.format("The temperature in Celsius is: %.2f Degrees%n", calcC);
+                    kMessage = String.format("The temperature in Kelvin is: %.2f K%n", calcK);
+                    message = fMessage + cMessage + kMessage;
+                    isInputBad = false;
+                    break;
+                case "c":
+                    calcF = (temperature * 9/5) + 32;
+                    calcK = temperature + 273.15;
+                    cMessage = String.format("The current temperature is %.2f Celsius%n", temperature);
+                    fMessage = String.format("The temperature in Fahrenheit is: %.2f Degrees%n", calcF);
+                    kMessage = String.format("The temperature in Kelvin is: %.2f K%n", calcK);
+                    message = cMessage + fMessage + kMessage;
+                    isInputBad = false;
+                case "k":
+                    calcC = temperature - 273.15;
+                    calcF = (temperature - 273.15)*(9/5) + 32;
+                    kMessage = String.format("The current temperature is %.2f K%n", temperature);
+                    cMessage = String.format("The temperature in Celsius is: %.2f Degrees%n", calcC);
+                    fMessage = String.format("The temperature in Fahrenheit is: %.2f Degrees%n", calcF);
+                    message = kMessage + cMessage + fMessage;
+                    isInputBad = false;
+                default:
+                    System.out.println("Please enter a valid temperature scale.");
+                    break;
+            }
+        }        
+        /*
         while (isInputBad) {
             if (response.equalsIgnoreCase("f")) {
                 calcCelsius = (temperature - 32) * 5/9;
@@ -62,6 +98,7 @@ import java.util.Scanner;
                 System.out.println("Please enter a valid temperature scale: "); // crash
             } 
         }
+        */
         return message;
     }
 }

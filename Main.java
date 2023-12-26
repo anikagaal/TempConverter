@@ -19,7 +19,7 @@ import java.util.Scanner;
         calc.setTemperature(User.inputDouble(tempMessage));
 
         System.out.print("Please enter the temperature scale: ");
-        calc.convertTemperature(keyboard.next());
+        calc.convertTemperature(keyboard.next()).toLowerCase();
 
         System.out.print("Program by Anika Gaal");
         
